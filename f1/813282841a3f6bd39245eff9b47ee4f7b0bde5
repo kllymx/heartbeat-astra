@@ -1,0 +1,19 @@
+src/astra/model.ts
+  s_9113a717add52e::t_e2562a989cf74b 33-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "f1813282841a3f6bd39245eff9b47ee4f7b0bde5",
+  "prompts": {},
+  "sessions": {
+    "s_9113a717add52e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a08cb7-cb92-7233-a739-9507fe6d13a2",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "kllymx <122115719+kllymx@users.noreply.github.com>"
+    }
+  }
+}
