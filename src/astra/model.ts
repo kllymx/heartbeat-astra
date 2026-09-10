@@ -30,6 +30,8 @@ const serverErrors: Record<string, string> = {
 // Same-origin routes work with the Vite proxy and avoid probing localhost from a
 // publicly hosted page. No browser environment variable contains an API key.
 export async function getModelStatus(): Promise<ModelStatus> {
+  // The optional server is loopback-only; static demos never probe a missing API.
+  if (typeof window !== 'undefined' && !['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname)) return { ...unavailable }
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), 3000)
   try {
