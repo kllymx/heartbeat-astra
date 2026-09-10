@@ -1,0 +1,39 @@
+README.md
+  s_9113a717add52e::t_2099bdf8cc03b1 6,8,42,51
+docs/DESKTOP.md
+  s_9113a717add52e::t_c36b57e3dea53d 1-34
+src/astra/MemoryConstellation.tsx
+  s_9113a717add52e::t_31e73183607e1c 3,191,233,242-243,254,278,280,287,305-308,310
+src/astra/Observatory.tsx
+  s_9113a717add52e::t_193196e56d07b6 2,139,152-156,159,162,170,177,179,182
+src/astra/RhythmPanel.tsx
+  s_9113a717add52e::t_7c56bee109e733 1-58
+src/astra/SignalOrb.tsx
+  s_9113a717add52e::t_45af2815ba11de 2,4-5,14-19
+src/astra/memory.css
+  s_9113a717add52e::t_3b09b9430020fe 9,13,19,21,29,42,44,49-50,55-56,60,77,79,100,107,120-191
+src/astra/observatory.css
+  s_9113a717add52e::t_5f042ea470c160 1,3-5,10,12-270,272-276
+src/astra/rhythm-panel.css
+  s_9113a717add52e::t_2537390924f8ab 1-38
+src/astra/signal-orb.css
+  s_9113a717add52e::t_d54125fd0f0939 1-11
+tests/observatory.spec.ts
+  s_9113a717add52e::t_66894b02db0aee 26,45,74,87
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "2c9e5814384deed43f2b665111263b2cd1bd2fe7",
+  "prompts": {},
+  "sessions": {
+    "s_9113a717add52e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a08cb7-cb92-7233-a739-9507fe6d13a2",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "kllymx <122115719+kllymx@users.noreply.github.com>"
+    }
+  }
+}
