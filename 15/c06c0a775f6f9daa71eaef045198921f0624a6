@@ -1,0 +1,106 @@
+server/astra.test.mjs
+  s_9113a717add52e::t_ff7a40d8bf482a 1-127,139-240,259
+  s_c946b0ade1a762::t_a19fc0b7a57a92 128-138,241-258
+src/astra/MemoryConstellation.tsx
+  s_9113a717add52e::t_e0a81cf4872560 1-170,178-180,187-317
+  s_9113a717add52e::t_13c97849952da0 171-177,181-186
+src/astra/memory.css
+  s_9113a717add52e::t_e0a81cf4872560 1-112,114-119
+  s_9113a717add52e::t_13c97849952da0 113
+docs/MODEL.md
+  s_c946b0ade1a762::t_e26206ef8b596d 1-55
+playwright.config.ts
+  s_9113a717add52e::t_47f35ea06112de 1-27
+tests/observatory.spec.ts
+  s_9113a717add52e::t_47f35ea06112de 1-119
+.env.example
+  s_c946b0ade1a762::t_3acf6700266f41 1-5
+.github/workflows/ci.yml
+  s_9113a717add52e::t_abde156cb32065 1-32
+.github/workflows/pages.yml
+  s_9113a717add52e::t_79e2f924693aa6 1-39
+.gitignore
+  s_9113a717add52e::t_e8ef1ec392ed0d 1-47
+LICENSE
+  s_9113a717add52e::t_6a832351c2f982 1-21
+README.md
+  s_9113a717add52e::t_f91265f4b84d45 1-79
+SECURITY.md
+  s_9113a717add52e::t_ffa1ffbda03f48 1-18
+docs/ASSESSMENT.md
+  s_9113a717add52e::t_d9bd0e8733f1a0 1-63
+docs/DEMO.md
+  s_9113a717add52e::t_86c7d69afbd3a6 1-28
+eslint.config.js
+  s_9113a717add52e::t_671a1f9056c333 1-23
+index.html
+  s_9113a717add52e::t_df006c94d5b0b8 1-16
+package-lock.json
+  s_9113a717add52e::t_121dcda78f8281 1-3098
+package.json
+  s_9113a717add52e::t_eb905b38edec7d 1-42
+public/favicon.svg
+  s_9113a717add52e::t_4ecdf0bb6cc7a6 1
+server/astra.mjs
+  s_c946b0ade1a762::t_33ae261c5c24ac 1-234
+src/astra/Observatory.tsx
+  s_9113a717add52e::t_97aa3b8b9b4a16 1-193
+src/astra/ReplayChart.tsx
+  s_9113a717add52e::t_8ae76dbfff03b6 1-50
+src/astra/SignalOrb.tsx
+  s_9113a717add52e::t_5b62768a78bef4 1-30
+src/astra/demo.ts
+  s_9113a717add52e::t_a6d78602051e67 1-124
+src/astra/engine.test.ts
+  s_9113a717add52e::t_9871e98553e70b 1-134
+src/astra/engine.ts
+  s_9113a717add52e::t_8f8bb19c17156d 1-197
+src/astra/fonts/DM-SANS-LICENSE
+  s_9113a717add52e::t_0b93d394015518 1-93
+src/astra/fonts/IBM-PLEX-MONO-LICENSE
+  s_9113a717add52e::t_677127b8b5a692 1-93
+src/astra/format.ts
+  s_9113a717add52e::t_bf955f463a238a 1-3
+src/astra/model.ts
+  s_c946b0ade1a762::t_5c2a09bfb5dbe5 1-74
+src/astra/native.ts
+  s_9113a717add52e::t_1ac3145b7a3776 1-11
+src/astra/observatory.css
+  s_9113a717add52e::t_31cec1fa03df3f 1-94
+src/main.tsx
+  s_9113a717add52e::t_122f28041eafb9 1-5
+src/types.ts
+  s_9113a717add52e::t_5713c163522ca0 1-318
+tsconfig.app.json
+  s_9113a717add52e::t_69908f112ffd59 1-33
+tsconfig.json
+  s_9113a717add52e::t_646e9982256898 1-7
+tsconfig.node.json
+  s_9113a717add52e::t_f1009fb495456e 1-26
+vite.config.ts
+  s_9113a717add52e::t_bef50469f7a81f 1-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "15c06c0a775f6f9daa71eaef045198921f0624a6",
+  "prompts": {},
+  "sessions": {
+    "s_9113a717add52e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a08cb7-cb92-7233-a739-9507fe6d13a2",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "kllymx <122115719+kllymx@users.noreply.github.com>"
+    },
+    "s_c946b0ade1a762": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a08cba-e56f-74b2-bd52-23ba1579c065",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "kllymx <122115719+kllymx@users.noreply.github.com>"
+    }
+  }
+}
