@@ -1,6 +1,6 @@
 import { useId, useMemo, useRef, useState } from 'react'
 import type { CSSProperties, KeyboardEvent } from 'react'
-import { ArrowRight, ArrowUpRight, Clock3, Command, Heart, Layers3, Network, Search, Sparkles, X } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Clock3, Command, Heart, Layers3, Network, Search, TerminalSquare, X } from 'lucide-react'
 import type { DashboardSnapshot, TimelinePoint } from '../types'
 import './memory.css'
 
@@ -188,7 +188,7 @@ function HeartTrace({ points, id }: { points: TimelinePoint[]; id: string }) {
 }
 
 function KindIcon({ kind, size = 14 }: { kind: Kind; size?: number }) {
-  return kind === 'app' ? <Command size={size}/> : kind === 'agent' ? <Sparkles size={size}/> : <Layers3 size={size}/>
+  return kind === 'app' ? <Command size={size}/> : kind === 'agent' ? <TerminalSquare size={size}/> : <Layers3 size={size}/>
 }
 
 export default function MemoryConstellation({ snapshot, onSelectTime }: Props) {
@@ -230,7 +230,7 @@ export default function MemoryConstellation({ snapshot, onSelectTime }: Props) {
 
   return <section className="memory-shell" aria-label="Memory constellation">
     <div className="memory-intro">
-      <div><span className="memory-eyebrow">THE CONNECTIONS BETWEEN YOUR MOMENTS</span><h2>Follow a thread.</h2><p>Apps, contexts, and agents. A different way to find your way back.</p></div>
+      <div><span className="memory-eyebrow">TIMELINE CONTEXT</span><h2>Recorded connections</h2><p>Node size reflects duration. Lines show shared time.</p></div>
       <div className="memory-summary"><span><strong>{graph.nodes.filter(node => node.kind === 'context').length}</strong> contexts</span><i/><span><strong>{duration(totalDuration)}</strong> mapped</span></div>
     </div>
     <div className="memory-workspace">
@@ -239,8 +239,8 @@ export default function MemoryConstellation({ snapshot, onSelectTime }: Props) {
           <div className="memory-filters" role="group" aria-label="Highlight a type of memory">{FILTERS.map(item => <button key={item.id} type="button" aria-pressed={filter === item.id} className={filter === item.id ? 'memory-filter memory-filter--active' : 'memory-filter'} onClick={() => setFilter(item.id)}>{item.label}</button>)}</div>
           <label className="memory-search"><Search size={13}/><input ref={inputRef} value={query} onChange={event => setQuery(event.target.value)} placeholder="Find a connection…" aria-label="Search memory map"/>{query && <button type="button" aria-label="Clear search" onClick={() => { setQuery(''); inputRef.current?.focus() }}><X size={12}/></button>}</label>
         </div>
-        {!graph.nodes.length ? <div className="memory-empty"><Network size={38} strokeWidth={1}/><h3>Your connections begin here.</h3><p>As app activity, context, and agent sessions appear in your timeline, this map will bring them together.</p></div> : <div className="memory-canvas">
-          <div className="memory-map-meta"><span className="memory-eyebrow">ATTENTION, IN ORBIT</span><span>{clock(graph.points[0].bucketStartTs)} — {clock(graph.points.at(-1)!.bucketEndTs)}</span></div>
+        {!graph.nodes.length ? <div className="memory-empty"><Network size={38} strokeWidth={1}/><h3>No context available</h3><p>As app activity, context, and agent sessions appear in your timeline, this map will bring them together.</p></div> : <div className="memory-canvas">
+          <div className="memory-map-meta"><span className="memory-eyebrow">CONTEXT MAP</span><span>{clock(graph.points[0].bucketStartTs)} — {clock(graph.points.at(-1)!.bucketEndTs)}</span></div>
           <svg className="memory-graph" viewBox="0 0 780 610" aria-label="Interactive map. Select a node to explore its recorded moments. Use Tab or arrow keys to move between nodes.">
             <defs>
               <radialGradient id={`${instanceId}-atmosphere`}><stop offset="0%" stopColor="#7eb99d" stopOpacity=".08"/><stop offset="65%" stopColor="#6c9e9a" stopOpacity=".025"/><stop offset="100%" stopColor="#6c9e9a" stopOpacity="0"/></radialGradient>
@@ -251,8 +251,7 @@ export default function MemoryConstellation({ snapshot, onSelectTime }: Props) {
               {[91, 173, 257].map((radius, index) => <ellipse key={radius} cx={CENTER.x} cy={CENTER.y} rx={radius * 1.14} ry={radius} fill="none" stroke="#7a9e8e" strokeOpacity={index === 2 ? '.085' : '.1'} strokeWidth=".65" strokeDasharray={index === 1 ? '2 7' : undefined} transform={`rotate(-12 ${CENTER.x} ${CENTER.y})`}/>)}
               <line x1="62" y1={CENTER.y} x2="718" y2={CENTER.y} stroke="#6a8a7d" strokeOpacity=".07" strokeDasharray="2 7"/>
               <line x1={CENTER.x} y1="42" x2={CENTER.x} y2="569" stroke="#6a8a7d" strokeOpacity=".07" strokeDasharray="2 7"/>
-              {Array.from({ length: 66 }, (_, index) => <circle key={index} cx={44 + (index * 137.51) % 692} cy={45 + (index * 83.19) % 505} r={index % 7 === 0 ? 1.1 : .65} fill="#b3c9bf" opacity={index % 5 === 0 ? .28 : .11}/>)}
-              <circle cx={CENTER.x} cy={CENTER.y} r="24" fill="#0d1415" fillOpacity=".65" stroke="#496b5c" strokeOpacity=".22"/>
+              <circle cx={CENTER.x} cy={CENTER.y} r="24" fill="var(--bg, #000)" fillOpacity=".65" stroke="#496b5c" strokeOpacity=".22"/>
               <path d={`M${CENTER.x - 9},${CENTER.y} h5 l3,-7 l4,14 l3,-7 h5`} fill="none" stroke="#8bab9c" strokeWidth="1" opacity=".55"/>
             </g>
             <g aria-hidden="true" className="memory-edges">{graph.edges.map(edge => {
@@ -276,16 +275,16 @@ export default function MemoryConstellation({ snapshot, onSelectTime }: Props) {
                 <circle className="memory-node-hit" r={Math.max(23, node.radius + 9)} fill="transparent"/>
                 <circle className="memory-node-halo" r={node.radius + 7} fill={color} opacity={active ? '.2' : '.075'} filter={`url(#${instanceId}-glow)`}/>
                 <circle className="memory-node-ring" r={node.radius + 7} fill="none" stroke={color} strokeWidth=".7" strokeOpacity={active ? '.7' : '.15'} strokeDasharray={node.kind === 'agent' ? '2.3 3.5' : undefined}/>
-                <circle r={node.radius} fill="#121e1c" stroke={color} strokeWidth={node.kind === 'app' ? '1' : '.7'} strokeOpacity=".75"/>
+                <circle r={node.radius} fill="var(--bg, #000)" stroke={color} strokeWidth={node.kind === 'app' ? '1' : '.7'} strokeOpacity=".75"/>
                 <circle r={node.radius * .62} fill={color} opacity={node.kind === 'app' ? '.25' : '.16'}/>
-                {node.kind === 'agent' ? <path d="M0,-4 L1.2,-1.2 L4,0 L1.2,1.2 L0,4 L-1.2,1.2 L-4,0 L-1.2,-1.2 Z" fill={color}/> : <circle r={node.kind === 'app' ? 2.4 : 1.7} fill={color}/>}
+                {node.kind === 'agent' ? <path d="M-3,-3 L0,0 L-3,3 M1,3 H4" fill="none" stroke={color} strokeWidth="1.2"/> : <circle r={node.kind === 'app' ? 2.4 : 1.7} fill={color}/>}
                 <text className={`memory-node-label memory-node-label--${node.kind}`} y={node.radius + 23} textAnchor="middle">{shortLabel(node.label, node.kind === 'agent' ? 22 : 25)}</text>
                 {node.kind === 'app' && <text className="memory-node-duration" y={node.radius + 37} textAnchor="middle">{duration(node.seconds)}</text>}
               </g>
             })}</g>
           </svg>
           {isFiltering && <div className="memory-search-status" role="status">{matches.length ? `${matches.length} ${matches.length === 1 ? 'connection' : 'connections'} highlighted` : 'No connections match this search.'}<button type="button" onClick={() => { setQuery(''); setFilter('all') }}>Reset<X size={10}/></button></div>}
-          <div className="memory-map-caption"><span><span className="memory-caption-dot"/>Every connection has a moment behind it.</span><span>SELECT A NODE TO EXPLORE</span></div>
+          <div className="memory-map-caption"><span><span className="memory-caption-dot"/>Derived from recorded timeline intervals.</span><span>SELECT A NODE TO EXPLORE</span></div>
         </div>}
         <div className="memory-map-footer"><div className="memory-legend"><span><i style={{ background: COLORS.app }}/>Apps</span><span><i style={{ background: COLORS.context }}/>Contexts</span><span><i style={{ background: COLORS.agent }}/>Agents</span></div><span>{graph.total > graph.nodes.length ? `${graph.nodes.length} of ${graph.total} elements · ` : ''}Size reflects time spent</span></div>
       </div>
@@ -303,12 +302,12 @@ export default function MemoryConstellation({ snapshot, onSelectTime }: Props) {
           <div className="memory-moments"><h4>Return to a moment <span>{selectedMoments.length}</span></h4>{selectedMoments.slice(0, 3).map(moment => <button key={moment.start} type="button" disabled={!onSelectTime} onClick={() => onSelectTime?.(moment.start)}><span className="memory-moment-marker"/><span><strong>{clock(moment.start)} <span>— {clock(moment.end)}</span></strong><small>{moment.app || moment.context || selected.label}</small></span><ArrowUpRight size={12}/></button>)}{selectedMoments.length > 3 && <p className="memory-more-moments">+ {selectedMoments.length - 3} more in the timeline</p>}</div>
           {onSelectTime && <button type="button" className="memory-open-moment" onClick={() => onSelectTime(selected.points[0].bucketStartTs)}>Open moment<ArrowRight size={14}/></button>}
         </> : <>
-          <div className="memory-inspector-top"><span className="memory-eyebrow">YOUR DAY, CONNECTED</span><Network size={13}/></div>
-          <div className="memory-discovery-mark" aria-hidden="true"><i/><i/><i/><i/><i/><span><Network size={26} strokeWidth={1}/></span></div>
-          <h3>Some things make more sense together.</h3>
-          <p className="memory-selected-description">Find the context behind an app, the work around an agent session, or the moments your body remembers.</p>
+          <div className="memory-inspector-top"><span className="memory-eyebrow">CONTEXT INSPECTOR</span><Network size={13}/></div>
+
+          <h3>Select a context</h3>
+          <p className="memory-selected-description">Select a node to inspect its duration, heart rate, and overlapping activity.</p>
           <div className="memory-guide"><div><span>01</span><p><strong>Follow a connection</strong>Select a node to see what happened around it.</p></div><div><span>02</span><p><strong>Notice the overlap</strong>Lines connect activity recorded at the same time.</p></div><div><span>03</span><p><strong>Go back to the moment</strong>Open the timeline with its original context.</p></div></div>
-          {graph.nodes.length > 0 && <div className="memory-start-here"><span className="memory-eyebrow">A PLACE TO START</span>{graph.nodes.filter(node => node.kind === 'app').slice(0, 2).map(node => <button key={node.id} type="button" onClick={() => selectNode(node.id)}><span className="memory-start-icon"><Command size={13}/></span><span>{node.label}<small>{duration(node.seconds)} in your timeline</small></span><ArrowUpRight size={13}/></button>)}</div>}
+          {graph.nodes.length > 0 && <div className="memory-start-here"><span className="memory-eyebrow">APPLICATIONS</span>{graph.nodes.filter(node => node.kind === 'app').slice(0, 2).map(node => <button key={node.id} type="button" onClick={() => selectNode(node.id)}><span className="memory-start-icon"><Command size={13}/></span><span>{node.label}<small>{duration(node.seconds)} in your timeline</small></span><ArrowUpRight size={13}/></button>)}</div>}
           <p className="memory-source-note">Built from the selected timeline. Connections show shared context, not cause.</p>
         </>}
       </aside>

@@ -1,8 +1,8 @@
 import { useId } from 'react'
+import './signal-orb.css'
 
-export default function SignalOrb({ bpm, focus, active = true }: { bpm: number | null; focus: number; active?: boolean }) {
-  const id = useId().replace(/:/g, '')
-  const lines = Array.from({ length: 46 }, (_, ring) => {
+// The contour geometry is fixed; calculate it once rather than on every live tick.
+const contours = Array.from({ length: 46 }, (_, ring) => {
     const points = Array.from({ length: 161 }, (_, step) => {
       const theta = step / 160 * Math.PI * 2
       const r = 68 + ring * 1.8
@@ -11,8 +11,12 @@ export default function SignalOrb({ bpm, focus, active = true }: { bpm: number |
       const y = 190 + Math.sin(theta) * (r + wave) * 0.91
       return `${step ? 'L' : 'M'}${x.toFixed(2)},${y.toFixed(2)}`
     }).join(' ')
-    return <path key={ring} d={points + ' Z'} fill="none" stroke={`url(#orb-${id})`} strokeWidth={ring % 8 === 0 ? 1.1 : 0.65} opacity={0.2 + Math.sin(ring / 46 * Math.PI) * 0.65} />
-  })
+    return points + ' Z'
+})
+
+export default function SignalOrb({ bpm, focus, active = true }: { bpm: number | null; focus: number; active?: boolean }) {
+  const id = useId().replace(/:/g, '')
+  const lines = contours.map((path, ring) => <path key={ring} d={path} fill="none" stroke={`url(#orb-${id})`} strokeWidth={ring % 8 === 0 ? 1.1 : 0.65} opacity={0.2 + Math.sin(ring / 46 * Math.PI) * 0.65}/>)
   return <div className={`astra-orb ${active ? 'astra-orb--active' : ''}`} aria-label={`Signal portrait: ${bpm === null ? 'heart rate unavailable' : `${Math.round(bpm)} beats per minute`}, focus ${focus}`}>
     <svg viewBox="0 0 400 380" role="img" aria-hidden="true">
       <defs>

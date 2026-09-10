@@ -23,7 +23,7 @@ async function screenshot(page: Page, name: string) {
 }
 
 test('sample day shows measured metrics and an answer with supporting signals', async ({ page }) => {
-  await expect(page.getByRole('heading', { name: 'Your day, connected.' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Heartbeat' })).toBeVisible()
   await expect(page.getByText('Synthetic data · no wearable needed')).toBeVisible()
   await expect(metric(page, 'FOCUS TIME')).toHaveText('4h 48m')
   await expect(metric(page, 'AVERAGE HEART RATE')).toHaveText('72bpm')
@@ -42,7 +42,7 @@ test('sample day shows measured metrics and an answer with supporting signals', 
 
 test('replay slider and moment controls update the displayed time', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Day replay', exact: true }).click()
-  await expect(page.getByRole('heading', { name: 'Find your rhythm.' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Day replay' })).toBeVisible()
   const slider = page.getByRole('slider', { name: 'Explore time' })
   await expect(slider).toHaveAttribute('aria-valuetext', /^09:00, Chrome,/)
   await slider.focus()
@@ -71,7 +71,7 @@ test('changing to context overload updates the metrics', async ({ page }) => {
 
 test('memory search, keyboard selection, and open moment preserve the context', async ({ page }) => {
   await page.getByRole('navigation', { name: 'Main navigation' }).getByRole('button', { name: 'Memory map', exact: true }).click()
-  await expect(page.getByRole('heading', { name: 'A map of your mind at work.' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Memory map' })).toBeVisible()
   await page.getByRole('textbox', { name: 'Search memory map' }).fill('codex')
   await expect(page.getByRole('status')).toContainText('4 connections highlighted')
   const codex = page.getByRole('button', { name: /^Codex, Application,/ })
@@ -84,7 +84,7 @@ test('memory search, keyboard selection, and open moment preserve the context', 
   await expect(inspector.getByRole('heading', { name: /Connected by shared time/ })).toBeVisible()
   await screenshot(page, 'observatory-memory')
   await inspector.getByRole('button', { name: 'Open moment', exact: true }).click()
-  await expect(page.getByRole('heading', { name: 'Find your rhythm.' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Day replay' })).toBeVisible()
   await expect(page.getByRole('slider', { name: 'Explore time' })).toHaveAttribute('aria-valuetext', /^09:24, Codex,/)
 })
 

@@ -3,9 +3,9 @@ type: documentation
 collab_reviewed: true
 ---
 
-# Heartbeat · The Human Observatory
+# Heartbeat · Rhythm and memory
 
-**Your day, connected.** An open-source observatory for the human behind the work. Built with Astra at the OpenAI hackathon.
+New rhythm, timeline, and memory features for the existing Heartbeat desktop app. Built with Astra at the OpenAI hackathon. This repository shares the reusable components and a browser preview.
 
 Explore the relationship between body signals, workspace activity, and AI collaboration through a living signal portrait, a replayable day, and an interactive memory constellation.
 
@@ -39,7 +39,7 @@ The standalone browser app contains **synthetic sample data**. The default **loc
 
 For real model answers, follow [MODEL.md](docs/MODEL.md). Set a model identifier available to your account; no public Astra API identifier is assumed. The static GitHub Pages demo does not include a model server.
 
-`src/astra/native.ts` is an optional adapter for the existing Heartbeat Tauri shell's `get_dashboard_snapshot` command. When embedded in that shell, the observatory reads native data and shows an empty state on initial failure instead of inventing measurements. This public edition does not ship a native collector or a packaged desktop app.
+The desktop integration uses `RhythmPanel` directly inside the existing Heartbeat overview, with the original toolbar, timeline, and local collector. It reads the host's real dashboard and collector state; it never loads demo fixtures. The memory map opens from the original toolbar and can seek the original timeline. See [Desktop integration](docs/DESKTOP.md). The separate `native.ts` adapter is available for embedding the full browser preview in a Tauri shell. This public repository does not ship the private native collector or a packaged desktop app.
 
 The graphs describe co-occurrence, not causation. Focus is a behavioral proxy, and recovery refers to an observed pause or lower-activity interval. These are reflection tools, not medical measurements or diagnoses.
 
@@ -48,6 +48,7 @@ The graphs describe co-occurrence, not causation. Focus is a behavioral proxy, a
 ```text
 src/astra/
   Observatory.tsx        Application shell, scenarios, Q&A, exports
+  RhythmPanel.tsx        Original desktop overview integration
   SignalOrb.tsx          Animated SVG signal portrait
   ReplayChart.tsx        Synchronized physiological / app / agent timeline
   MemoryConstellation.tsx  Searchable context graph and inspector
